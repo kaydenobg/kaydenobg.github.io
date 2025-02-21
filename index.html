@@ -1,0 +1,76 @@
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import { Button } from "@/components/ui/button";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+
+export default function HomePage() {
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setShowContent(true), 1500);
+  }, []);
+
+  return (
+    <div className="h-screen w-full bg-black text-white flex flex-col items-center justify-center p-6">
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-5xl font-bold"
+      >
+        Kayden Oh
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+        className="text-xl mt-4"
+      >
+        <Typewriter
+          words={["Software Developer", "Tech Enthusiast", "Innovator"]}
+          loop={0}
+          cursor
+          cursorStyle="_"
+          typeSpeed={80}
+          deleteSpeed={50}
+          delaySpeed={1500}
+        />
+      </motion.p>
+
+      {showContent && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="flex gap-6 mt-6"
+        >
+          <Button asChild>
+            <a href="#projects" className="px-6 py-2 text-lg font-semibold">My Work</a>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="#contact" className="px-6 py-2 text-lg font-semibold">Contact</a>
+          </Button>
+        </motion.div>
+      )}
+
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="flex gap-6 mt-10 text-2xl"
+      >
+        <a href="https://github.com/kaydenoh" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="hover:text-gray-400 transition duration-300" />
+        </a>
+        <a href="https://linkedin.com/in/kaydenoh" target="_blank" rel="noopener noreferrer">
+          <FaLinkedin className="hover:text-gray-400 transition duration-300" />
+        </a>
+        <a href="mailto:kayden.oh@example.com">
+          <FaEnvelope className="hover:text-gray-400 transition duration-300" />
+        </a>
+      </motion.div>
+    </div>
+  );
+}
