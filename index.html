@@ -1,76 +1,99 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
-import { Button } from "@/components/ui/button";
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
-
-export default function HomePage() {
-  const [showContent, setShowContent] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setShowContent(true), 1500);
-  }, []);
-
-  return (
-    <div className="h-screen w-full bg-black text-white flex flex-col items-center justify-center p-6">
-      <motion.h1
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-5xl font-bold"
-      >
-        Kayden Oh
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="text-xl mt-4"
-      >
-        <Typewriter
-          words={["Software Developer", "Tech Enthusiast", "Innovator"]}
-          loop={0}
-          cursor
-          cursorStyle="_"
-          typeSpeed={80}
-          deleteSpeed={50}
-          delaySpeed={1500}
-        />
-      </motion.p>
-
-      {showContent && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="flex gap-6 mt-6"
-        >
-          <Button asChild>
-            <a href="#projects" className="px-6 py-2 text-lg font-semibold">My Work</a>
-          </Button>
-          <Button variant="outline" asChild>
-            <a href="#contact" className="px-6 py-2 text-lg font-semibold">Contact</a>
-          </Button>
-        </motion.div>
-      )}
-
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="flex gap-6 mt-10 text-2xl"
-      >
-        <a href="https://github.com/kaydenoh" target="_blank" rel="noopener noreferrer">
-          <FaGithub className="hover:text-gray-400 transition duration-300" />
-        </a>
-        <a href="https://linkedin.com/in/kaydenoh" target="_blank" rel="noopener noreferrer">
-          <FaLinkedin className="hover:text-gray-400 transition duration-300" />
-        </a>
-        <a href="mailto:kayden.oh@example.com">
-          <FaEnvelope className="hover:text-gray-400 transition duration-300" />
-        </a>
-      </motion.div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayden Oh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .buttons a:hover {
+            background: white;
+            color: black;
+        }
+        .social-icons {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .social-icons a:hover {
+            color: gray;
+        }
+        #typing-text {
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kayden Oh</h1>
+    <p id="typing-text"></p>
+    
+    <div class="buttons">
+        <a href="#projects">My Work</a>
+        <a href="#contact">Contact</a>
     </div>
-  );
-}
+    
+    <div class="social-icons">
+        <a href="https://github.com/kaydenoh" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/kaydenoh" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:kayden.oh@example.com"><i class="fas fa-envelope"></i></a>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const words = ["Software Developer", "Tech Enthusiast", "Innovator"];
+            let index = 0;
+            let charIndex = 0;
+            const typingText = document.getElementById("typing-text");
+            
+            function typeEffect() {
+                if (charIndex < words[index].length) {
+                    typingText.textContent += words[index][charIndex];
+                    charIndex++;
+                    setTimeout(typeEffect, 100);
+                } else {
+                    setTimeout(() => {
+                        typingText.textContent = "";
+                        charIndex = 0;
+                        index = (index + 1) % words.length;
+                        typeEffect();
+                    }, 1500);
+                }
+            }
+            
+            if (typingText) {
+                typeEffect();
+            }
+        });
+    </script>
+</body>
+</html>
